@@ -1,0 +1,84 @@
+<%- include('../admininclude/adminnavigation') %>
+<%- include('../admininclude/adminheader') %>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-expand-lg   mt-3 border rounded-3" style="background-color:#013542 ;">
+        <a class="navbar-brand text-white" href="#">Edit Product</a>
+        
+      
+       
+       
+         
+        
+      </nav>
+<section>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron shadow  bg-white rounded p-4">
+                <!-- <h2 class="text-center">Edit Product</h2> -->
+                     <form action="/admin/edit-product/<%=product._id %>" method="post" enctype="multipart/form-data" >
+                    
+                    
+                    <div class="col-md-12">
+                        <label for="">Name</label>
+                    <input type="text" name="Name" class="form-control" value="<%=product.Name %>">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Choose Category</label>
+
+                       <select name="Category" id="cars" class="form-control">
+                        <option ><%=product.Category %></option>
+                        <% for(c of category){ %>
+                         <option ><%=c.CategoryName %></option>
+                         <%}%>
+
+                         <!-- <% if (product.Category != c.CategoryName) { %>
+                            <%=c.CategoryName %>  
+                            <% } %> -->
+                         <!-- <option >Plant</option>
+                         <option >Corporate Gift</option>
+                         <option >Hampers</option> -->
+                       </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Description</label>
+                    <textarea name="Description" id="" cols="30" rows="5" class="form-control" aria-valuetext="" ><%=product.Description %></textarea>
+                    </div>
+                    <div class="d-flex">
+                        <div class="col-md-4">
+                            <label for="">Cost</label>
+                        <input type="text" name="CostPrice" class="form-control" value="<%=product.Cost %>">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Price</label>
+                        <input type="text" name="Price" class="form-control" value="<%=product.Price %>">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Quantity</label>
+                        <input type="number" name="Quantity" class="form-control" value="<%=product.Quantity %>">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Image</label>
+                    <br>
+                    <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkma5_yOOlLsjl__uDF8rKiwFn8STkZARzFtYe4Ifi&s" alt="" style="width:100px ; height:auto ;"> -->
+                    <% for(var i=0; i < product.Images.length; i++) { %>
+                        <img src="/productimages/<%=product.Images[i] %>" alt="" style="width:100px ; height:auto ;">
+                       
+                     <% } %>
+
+                 
+                    <input type="file" class="form-control" name="Image"  multiple >
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-success mt-4">Submit</button>  
+                    </div>   
+                </form>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+</main>
+<%- include('../admininclude/adminfooter') %>

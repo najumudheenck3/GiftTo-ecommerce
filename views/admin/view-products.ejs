@@ -1,0 +1,101 @@
+<%- include('../admininclude/adminnavigation') %>
+<%- include('../admininclude/adminheader') %>
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-expand-lg   mt-3 border rounded-3" style="background-color:#013542 ;">
+        <a class="navbar-brand text-white" href="#">Product Management</a>
+        
+      
+       
+          <a class="btn btn-success ml-auto mt-2" href="/admin/add-product">Add product</a>
+         
+        
+      </nav>
+<section>
+    <div class="container ">
+    
+        <table class="table mt-3 table-bordered table-hover" >
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col"> Delete</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <% products.forEach((p,index)=>{ %>
+            
+                <tr>
+                    <th scope="row"> <%= index+1 %></th>
+                    <td><%=p.Name %></td>
+                    <td><%=p.Category %></td>
+                    <td><%=p.Cost %></td>
+                    <td><%=p.Price %></td>
+                    <td><%=p.Quantity %></td>
+                    <td><img style="height:50px ;width:50px" src="/productimages/<%=p.Images[0] %>" alt=""></td>
+                    <td>
+                        <a href="/admin/edit-product/<%=p._id %>" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                       <% if(p.productActive){ %>
+                            <button onclick="productStatus('<%=p._id %>')" class="btn btn-danger" style="width:100px ;"  >Hide</button>
+                        <% }else{ %>
+                        <button onclick="productStatus('<%=p._id %>')" class="btn btn-success" style="width:100px ;"  >Unhide</button>
+                        <% } %>
+
+                    </td> 
+                    
+                </tr>
+             <% }) %>
+            </tbody>
+        </table>
+    </div>
+</section>
+</main>
+
+<script>
+    function productStatus(proId){
+       
+        
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Change Product Status!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#013542 ',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Change it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url:'/admin/delete-product/'+proId,
+                    method:'post',
+                    success:(response)=>{
+                        if(response.status){
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Changed',
+                            text: 'Product Status Changed',
+                            showConfirmButton: false,
+                            })
+                            setTimeout(()=>{
+                                location.reload()
+                            },1000)
+                            
+                        }
+                    }
+                })
+                
+            }
+            })
+    }
+</script>
+
+<%- include('../admininclude/adminfooter') %>

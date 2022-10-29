@@ -1,0 +1,126 @@
+<%- include('../admininclude/adminnavigation') %>
+<%- include('../admininclude/adminheader') %>
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-expand-lg   mt-3 border rounded-3" style="background-color:#013542 ;">
+        <a class="navbar-brand text-white" href="#">All Users</a>
+      </nav>
+      
+      <section>
+        <div class="container mt-2">
+            <!-- <div class="d-flex">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                -->
+               <!-- <a href="/admin/addUser " class="btn btn-success ml-auto">Add User</a> -->
+             
+              <!-- </div> -->
+           <!-- <div class="d-flex">
+             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+            
+            <a href="/admin/addUser " class="btn btn-success ml-auto">Add User</a>
+          
+           </div>
+
+           
+     -->
+
+     
+     <div class="jumbotron shadow  bg-white rounded p-4">
+        <div class="d-flex">
+            <input type="text" id="myInput" onkeyup="myFunction()"
+            placeholder="Search for names.." title="Type in a name">
+           
+           <!-- <a href="/admin/addUser " class="btn btn-success ml-auto">Add User</a> -->
+         
+          </div>
+
+            <table  id="myTable" class="table table-bordered text-center  table-hover">
+                <tr class="header">
+                    <th style="width:10%;">No</th>
+                    <th style="width:35%;">Name</th>
+                    <th style="width:35%;">Email</th>
+                    <th style="width:20%;">Status</th>
+                    <!-- <th style="width:25%;">Delete</th> -->
+                </tr>
+                <% users.forEach((user,index)=> { %>
+               
+                <tr>
+                    <td>  <%= index+1 %></td>
+                    <td><%=user.Name %></td>
+                    <td><%=user.Email %></td>
+                    
+                    <td>
+                        <% if(user.giftUser ){ %>
+                            <button onclick="userBlock('<%=user._id %>')" class="btn btn-warning" style="width:100px ;"  >Block</button>
+                         <% } else{ %>  
+                            <button onclick="userBlock('<%=user._id %>')" class="btn btn-success" style="width:100px ;" >UnBlock</button>
+                        <% } %>
+                    </td>
+                </tr>
+                <% }) %>
+            </table>
+            </div>
+        </div>
+    </section>
+    
+</main>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  table = document.getElementById('myTable');
+  tr = table.getElementsByTagName('tr');
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName('td')[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = '';
+      } else {
+        tr[i].style.display = 'none';
+      }
+    }
+  }
+}
+</script>
+
+<script>
+    function userBlock(userId){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "block!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#013542',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Change status!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url:'/admin/user-status/'+userId,
+                    method:'post',
+                    success:(response)=>{
+                        if(response.status){
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Changed!',
+                            text: 'User status changed',
+                            showConfirmButton: false,
+                            })
+                            setTimeout(()=>{
+                                location.reload()
+                            },1000)
+                            
+                        }
+                    }
+                })
+                
+            }
+            })
+    }
+</script>
+
+<%- include('../admininclude/adminfooter') %>
+

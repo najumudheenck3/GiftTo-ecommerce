@@ -1,0 +1,69 @@
+<%- include('../admininclude/adminnavigation') %>
+<%- include('../admininclude/adminheader') %>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <nav class="navbar navbar-expand-lg   mt-3 border rounded-3" style="background-color:#013542 ;">
+        <a class="navbar-brand text-white" href="#">Category</a>
+        </nav>
+        <section>
+            <div class="container mt-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- <h2 class="text-center">Edit Product</h2> -->
+                        <form action="/admin/view-category" method="post" >
+                           <div class="d-flex">
+                            <div class="col-md-10 mt-4">
+                                <input type="text" name="Category" class="form-control" value="" placeholder="category" required>
+                                </div>
+                                
+                                <div class="col-md-2 text-center">
+                                    <button type="submit" class="btn btn-success mt-4">Add Category</button>  
+                                </div>
+                                
+                           </div> 
+                           <div>
+                            <% if(message.length>0){ %>
+                                <p class="text-danger pl-5"><%= message %></p>
+                           <% } %>
+                        </div>  
+                        </form>
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+
+        <section>
+            <div class="container ">
+               
+                <table class="table mt-3 table-bordered text-center table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Show All Products</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <% category.forEach((p,index)=>{ %>
+                        
+                         <tr>
+                             <th scope="row"><%= index+1 %></th>
+                             <td><%=p.CategoryName %></td>
+                             <td>
+                                <a href="/admin/category-products/<%=p.CategoryName %>" class="btn btn-primary">Products</a>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-danger">Delete</a>
+                            </td>
+                             </tr>
+                             <% }) %>
+                             </tbody>
+                </table>
+            </div>
+        </section>
+</main>
+
+
+
+<%- include('../admininclude/adminfooter') %>
