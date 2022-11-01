@@ -11,6 +11,7 @@ const orderModel = require('../models/orderSchema');
 const Razorpay = require('razorpay');
 const twilioHelpers = require('../utils/otpverify');
 const category = require('../models/categorySchema')
+const notifyModel = require('../models/notifySchema');
 
 
 const instance = new Razorpay({
@@ -39,7 +40,7 @@ exports.userHome = async (req, res) => {
     })
 }
 
-exports.shopProducts = async (req,res)=>{
+exports.shopProducts = async (req, res) => {
     let user = req.session.user
     let cartNumber = req.session.cartNumber
     let wishlistNumber = req.session.wishlistNumber
@@ -52,15 +53,15 @@ exports.shopProducts = async (req,res)=>{
     }
     console.log(cartNumber);
     let Category = await category.find({})
-    let products =await Product.find({ productActive: true })
+    let products = await Product.find({ productActive: true })
     console.log(products);
 
-    res.render('users/shop-products',{ user, Category, cartNumber, wishlistNumber, products })
+    res.render('users/shop-products', { user, Category, cartNumber, wishlistNumber, products })
 }
 
-exports.getMyProfile =async(req,res)=>{
+exports.getMyProfile = async (req, res) => {
     let user = req.session.user
-    console.log(user,'ith thanda user');
+    // console.log(user,'ith thanda user');
     let cartNumber = req.session.cartNumber
     let wishlistNumber = req.session.wishlistNumber
     if (req.session.loggedIn) {
@@ -70,12 +71,12 @@ exports.getMyProfile =async(req,res)=>{
             req.session.wishlistNumber = wishlist.myWish.length
         }
     }
-    let userAlldetails = await userModel.findOne({_id:req.session.user._id})
-    console.log(userAlldetails);
-    res.render('users/my-profile',{user:userAlldetails,cartNumber, wishlistNumber})
+    let userAlldetails = await userModel.findOne({ _id: req.session.user._id })
+    // console.log(userAlldetails);
+    res.render('users/my-profile', { user: userAlldetails, cartNumber, wishlistNumber })
 }
 
-exports.categoryWiseProducts = async(req,res)=> {
+exports.categoryWiseProducts = async (req, res) => {
     let user = req.session.user
     let cartNumber = req.session.cartNumber
     let wishlistNumber = req.session.wishlistNumber
@@ -86,12 +87,12 @@ exports.categoryWiseProducts = async(req,res)=> {
             req.session.wishlistNumber = wishlist.myWish.length
         }
     }
-    let categoryName=req.query.category
-    let categoyProducts=await Product.find({Category:categoryName})
+    let categoryName = req.query.category
+    let categoyProducts = await Product.find({ Category: categoryName })
     let Category = await category.find({})
     res.render('users/category-products', { user, Category, cartNumber, wishlistNumber, products: categoyProducts })
     console.log(categoyProducts);
-    
+
 }
 
 exports.userLogin = (req, res) => {
@@ -240,7 +241,7 @@ exports.postget = async (req, res, next) => {
 }
 
 
-exports.viewOneProduct =async (req, res) => {
+exports.viewOneProduct = async (req, res) => {
     // console.log(req.params.id);
     let proId = req.params.id
     Product.findOne({ _id: proId }, async (err, data) => {
@@ -256,10 +257,10 @@ exports.viewOneProduct =async (req, res) => {
             }
 
         }
-let relatedProducts = await Product.find({Category:data.Category})
-console.log(relatedProducts);
+        let relatedProducts = await Product.find({ Category: data.Category })
+        console.log(relatedProducts);
         // console.log(data);
-        res.render('users/oneproductdetail', { user: req.session.user,relatedProducts, wishlistNumber: req.session.wishlistNumber, cartNumber: req.session.cartNumber, product: data })
+        res.render('users/oneproductdetail', { user: req.session.user, relatedProducts, wishlistNumber: req.session.wishlistNumber, cartNumber: req.session.cartNumber, product: data })
 
     })
 }
@@ -457,19 +458,22 @@ exports.deleteWishlistItem = async (req, res) => {
 exports.checkOut = async (req, res) => {
     const userId = req.session.user._id
     const viewcart = await cartModel.findOne({ userId: userId }).populate("products.productId").exec()
+    let userAlldetails = await userModel.findOne({ _id: req.session.user._id })
     // console.log(viewcart);
-    if(viewcart){
-        res.render('users/checkout', { cartProducts: viewcart, wishlistNumber: req.session.wishlistNumber, cartNumber: req.session.cartNumber, user: req.session.user })
-    }else{
+    if (viewcart) {
+        res.render('users/checkout', { cartProducts: viewcart, wishlistNumber: req.session.wishlistNumber, cartNumber: req.session.cartNumber, user: userAlldetails })
+    } else {
         res.redirect('/cart')
     }
 }
 
 exports.placeOrder = async (req, res) => {
+    let userId = req.session.user._id
     console.log('hjhioio');
     console.log(req.body);
-    let userId = req.session.user._id
-    let deliveryAddress = {
+    let addressIndex=req.body.index
+    let userOne = await userModel.findById(userId)
+     let deliveryAddress = {
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         phone: req.body.number,
@@ -478,6 +482,16 @@ exports.placeOrder = async (req, res) => {
         state: req.body.state,
         district: req.body.district
     }
+    if(addressIndex){
+        console.log(addressIndex,'index nd');
+        console.log('payayth');
+        userOne.Address[addressIndex] = deliveryAddress
+    }else{
+console.log('index illa');
+userOne.Address.push(deliveryAddress);
+    }
+    
+    await userOne.save()
     console.log(deliveryAddress);
     const cart = await cartModel.findOne({ userId: userId })
     console.log(cart.quantity);
@@ -547,7 +561,7 @@ exports.getOrder = async (req, res) => {
                 model: "product"
             }
         ]).exec()
-        console.log(myOrders, "hjhgfjhdgjh");
+        // console.log(myOrders, "hjhgfjhdgjh");
         res.render('users/orders', { myOrders: myOrders, wishlistNumber: req.session.wishlistNumber, cartNumber: req.session.cartNumber, user: req.session.user })
 
         //   res.render('user/orders',{myOrders:myOrders})
@@ -615,23 +629,65 @@ exports.generateOrder = (req, res) => {
     });
 }
 
-exports.addAddress=async(req,res)=>{
-   
-    let address={
-        firstName:req.body.firstname ,
-          lastName:req.body.lastname,
-          phone:req.body.phone ,
-          address:req.body.address ,
-          pincode:req.body.pincode,
-          state:req.body.state ,
-          district: req.body.district
+exports.addAndEditAddress = async (req, res) => {
+    console.log(req.body);
+    let addrexIndex = parseInt(req.body.index)
+    let _id = req.session.user._id
+    let userOne = await userModel.findById(_id)
+    console.log(userOne.Address[2]);
+    let address = {
+        firstName: req.body.firstname,
+        lastName: req.body.lastname,
+        phone: req.body.phone,
+        address: req.body.address,
+        pincode: req.body.pincode,
+        state: req.body.state,
+        district: req.body.district
     }
-   
-    let _id=req.session.user._id
-    let userOne=await userModel.findById(_id)
-    console.log(userOne);
-    userOne.Address.push(address);
+    if (addrexIndex > -1) {
+        console.log('payayth');
+        userOne.Address[addrexIndex] = address
+    } else {
+        userOne.Address.push(address);
+    }
+
+
+
+    // console.log(userOne);
+
     await userOne.save()
+    res.json({status:true})
+}
+
+exports.deleteAddress = async (req, res) => {
+    const userId = req.session.user._id
+    const addressIndex = req.body.addresIndex
+    const userOne = await userModel.findById(userId)
+    userOne.Address.splice(addressIndex, 1)
+    await userOne.save()
+    res.json({ status: true })
+
+
+}
+
+exports.cancelOrder=async(req,res)=>{
+    console.log(req.params.orderId,'jkfhdjfd111');
+    let orderId=req.params.orderId
+   await orderModel.findByIdAndUpdate(orderId,{
+        orderActive:false})
+        res.json({ status: true })
+}
+
+exports.addNotifyProduct=async(req,res)=>{
+    let proId=req.body.ProductId 
+   let notifyProduct = new notifyModel({
+        email: req.body.Email,
+        productId:proId ,
+    });
+
+    await notifyProduct.save()
+    res.json({ status: true })
+
 }
 
 exports.userLogout = ((req, res) => {

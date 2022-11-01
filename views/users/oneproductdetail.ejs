@@ -7,10 +7,10 @@
 
 
 
-
+<div id="productDetail">
         <!-- Product Detail -->
         <section class="sec-product-detail bg0 p-t-65 p-b-60">
-            <div class="container">
+            <div class="container" >
                 <div class="row">
                     <div class="col-md-6 col-lg-7 p-b-30">
                         <div class="p-l-25 p-r-30 p-lr-0-lg">
@@ -127,7 +127,7 @@
                                                 Add to cart
                                             </button>
                                             <% }else{ %>
-                                                <button data-toggle="modal" data-target="#exampleModal"
+                                                <button onclick="addProductIdNotify('<%=product._id %>')" data-toggle="modal" data-target="#exampleModal"
                                                     class="flex-c-m stext-101 cl0 size-101 bg-warning bor1 hov-btn1 p-lr-15 trans-04 ">
                                                     Notify Me
                                                 </button>
@@ -364,293 +364,370 @@
                     <div class="slick2">
                         <% if(relatedProducts.length>0){ %>
                             <% relatedProducts.forEach((p)=>{ %>
-                         <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                             <!-- Block2 -->
-                             <div class="block2">
-                                 <div class="block2-pic hov-img0">
-                                     <a href="/view-one-product/<%=p._id %>"> <img src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
-                                     <%if(p.Quantity>0){%>
-                                         <div
-                                             class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
-                                             In stock</div>
-                                         <%}else{%>
-                                             <div
-                                                 class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
-                                                 Out of stock</div>
-                                             <%}%>
-                                     <a href="#"
-                                         class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                         Quick View
-                                     </a>
-                                 </div>
- 
-                                 <div class="block2-txt flex-w flex-t p-t-14">
-                                     <div class="block2-txt-child1 flex-col-l ">
-                                         <a href="/view-one-product/<%=p._id %>"
-                                             class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                             <%= p.Name %>
-                                         </a>
- 
-                                         <span class="stext-105 cl3">
-                                             ₹<%=p.Price %>
-                                         </span>
-                                     </div>
- 
-                                     <div class="block2-txt-child2 flex-r p-t-3">
-                                         <a href="#" onclick="addToWishlist('<%=p._id %>')" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                             <img class="icon-heart1 dis-block trans-04"
-                                                 src="/images/icons/icon-heart-01.png" alt="ICON">
-                                             <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                    <!-- Block2 -->
+                                    <div class="block2">
+                                        <div class="block2-pic hov-img0">
+                                            <a href="/view-one-product/<%=p._id %>"> <img
+                                                    src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
+                                            <%if(p.Quantity>0){%>
+                                                <div
+                                                    class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
+                                                    In stock</div>
+                                                <%}else{%>
+                                                    <div
+                                                        class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
+                                                        Out of stock</div>
+                                                    <%}%>
+                                                        <a href="#"
+                                                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                                            Quick View
+                                                        </a>
+                                        </div>
+
+                                        <div class="block2-txt flex-w flex-t p-t-14">
+                                            <div class="block2-txt-child1 flex-col-l ">
+                                                <a href="/view-one-product/<%=p._id %>"
+                                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                    <%= p.Name %>
+                                                </a>
+
+                                                <span class="stext-105 cl3">
+                                                    ₹<%=p.Price %>
+                                                </span>
+                                            </div>
+
+                                            <div class="block2-txt-child2 flex-r p-t-3">
+                                                <a href="#" onclick="addToWishlist('<%=p._id %>')"
+                                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                    <img class="icon-heart1 dis-block trans-04"
+                                                        src="/images/icons/icon-heart-01.png" alt="ICON">
+                                                    <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                                  src="/images/icons/icon-heart-02.png" alt="ICON"> -->
-                                         </a>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                    <% }) %>
-                    <% } %>
-                    <% if(relatedProducts.length>0){ %>
-                        <% relatedProducts.forEach((p)=>{ %>
-                     <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                         <!-- Block2 -->
-                         <div class="block2">
-                             <div class="block2-pic hov-img0">
-                                 <a href="/view-one-product/<%=p._id %>"> <img src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
-                                 <%if(p.Quantity>0){%>
-                                     <div
-                                         class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
-                                         In stock</div>
-                                     <%}else{%>
-                                         <div
-                                             class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
-                                             Out of stock</div>
-                                         <%}%>
-                                 <a href="#"
-                                     class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                     Quick View
-                                 </a>
-                             </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } %>
+                                        <% if(relatedProducts.length>0){ %>
+                                            <% relatedProducts.forEach((p)=>{ %>
+                                                <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                                    <!-- Block2 -->
+                                                    <div class="block2">
+                                                        <div class="block2-pic hov-img0">
+                                                            <a href="/view-one-product/<%=p._id %>"> <img
+                                                                    src="/productimages/<%=p.Images[0] %>"
+                                                                    alt="IMG-PRODUCT"></a>
+                                                            <%if(p.Quantity>0){%>
+                                                                <div
+                                                                    class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
+                                                                    In stock</div>
+                                                                <%}else{%>
+                                                                    <div
+                                                                        class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
+                                                                        Out of stock</div>
+                                                                    <%}%>
+                                                                        <a href="#"
+                                                                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                                                            Quick View
+                                                                        </a>
+                                                        </div>
 
-                             <div class="block2-txt flex-w flex-t p-t-14">
-                                 <div class="block2-txt-child1 flex-col-l ">
-                                     <a href="/view-one-product/<%=p._id %>"
-                                         class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                         <%= p.Name %>
-                                     </a>
+                                                        <div class="block2-txt flex-w flex-t p-t-14">
+                                                            <div class="block2-txt-child1 flex-col-l ">
+                                                                <a href="/view-one-product/<%=p._id %>"
+                                                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                                    <%= p.Name %>
+                                                                </a>
 
-                                     <span class="stext-105 cl3">
-                                         ₹<%=p.Price %>
-                                     </span>
-                                 </div>
+                                                                <span class="stext-105 cl3">
+                                                                    ₹<%=p.Price %>
+                                                                </span>
+                                                            </div>
 
-                                 <div class="block2-txt-child2 flex-r p-t-3">
-                                     <a href="#" onclick="addToWishlist('<%=p._id %>')" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                         <img class="icon-heart1 dis-block trans-04"
-                                             src="/images/icons/icon-heart-01.png" alt="ICON">
-                                         <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                                            <div class="block2-txt-child2 flex-r p-t-3">
+                                                                <a href="#" onclick="addToWishlist('<%=p._id %>')"
+                                                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                                    <img class="trans-04 dis-block trans-04"
+                                                                        src="/images/icons/icon-heart-01.png"
+                                                                        alt="ICON">
+                                                                    <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                              src="/images/icons/icon-heart-02.png" alt="ICON"> -->
-                                     </a>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                <% }) %>
-                <% } %>
-                <% if(relatedProducts.length>0){ %>
-                    <% relatedProducts.forEach((p)=>{ %>
-                 <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                     <!-- Block2 -->
-                     <div class="block2">
-                         <div class="block2-pic hov-img0">
-                             <a href="/view-one-product/<%=p._id %>"> <img src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
-                             <%if(p.Quantity>0){%>
-                                 <div
-                                     class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
-                                     In stock</div>
-                                 <%}else{%>
-                                     <div
-                                         class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
-                                         Out of stock</div>
-                                     <%}%>
-                             <a href="#"
-                                 class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                 Quick View
-                             </a>
-                         </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }) %>
+                                                    <% } %>
+                                                        <% if(relatedProducts.length>0){ %>
+                                                            <% relatedProducts.forEach((p)=>{ %>
+                                                                <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                                                    <!-- Block2 -->
+                                                                    <div class="block2">
+                                                                        <div class="block2-pic hov-img0">
+                                                                            <a href="/view-one-product/<%=p._id %>">
+                                                                                <img src="/productimages/<%=p.Images[0] %>"
+                                                                                    alt="IMG-PRODUCT"></a>
+                                                                            <%if(p.Quantity>0){%>
+                                                                                <div
+                                                                                    class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
+                                                                                    In stock</div>
+                                                                                <%}else{%>
+                                                                                    <div
+                                                                                        class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
+                                                                                        Out of stock</div>
+                                                                                    <%}%>
+                                                                                        <a href="#"
+                                                                                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                                                                            Quick View
+                                                                                        </a>
+                                                                        </div>
 
-                         <div class="block2-txt flex-w flex-t p-t-14">
-                             <div class="block2-txt-child1 flex-col-l ">
-                                 <a href="/view-one-product/<%=p._id %>"
-                                     class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                     <%= p.Name %>
-                                 </a>
+                                                                        <div class="block2-txt flex-w flex-t p-t-14">
+                                                                            <div class="block2-txt-child1 flex-col-l ">
+                                                                                <a href="/view-one-product/<%=p._id %>"
+                                                                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                                                    <%= p.Name %>
+                                                                                </a>
 
-                                 <span class="stext-105 cl3">
-                                     ₹<%=p.Price %>
-                                 </span>
-                             </div>
+                                                                                <span class="stext-105 cl3">
+                                                                                    ₹<%=p.Price %>
+                                                                                </span>
+                                                                            </div>
 
-                             <div class="block2-txt-child2 flex-r p-t-3">
-                                 <a href="#" onclick="addToWishlist('<%=p._id %>')" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                     <img class="icon-heart1 dis-block trans-04"
-                                         src="/images/icons/icon-heart-01.png" alt="ICON">
-                                     <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                                                            <div class="block2-txt-child2 flex-r p-t-3">
+                                                                                <a href="#"
+                                                                                    onclick="addToWishlist('<%=p._id %>')"
+                                                                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                                                    <img class="icon-heart1 dis-block trans-04"
+                                                                                        src="/images/icons/icon-heart-01.png"
+                                                                                        alt="ICON">
+                                                                                    <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                          src="/images/icons/icon-heart-02.png" alt="ICON"> -->
-                                 </a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-            <% }) %>
-            <% } %>
-            <% if(relatedProducts.length>0){ %>
-                <% relatedProducts.forEach((p)=>{ %>
-             <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                 <!-- Block2 -->
-                 <div class="block2">
-                     <div class="block2-pic hov-img0">
-                         <a href="/view-one-product/<%=p._id %>"> <img src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
-                         <%if(p.Quantity>0){%>
-                             <div
-                                 class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
-                                 In stock</div>
-                             <%}else{%>
-                                 <div
-                                     class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
-                                     Out of stock</div>
-                                 <%}%>
-                         <a href="#"
-                             class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                             Quick View
-                         </a>
-                     </div>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <% }) %>
+                                                                    <% } %>
+                                                                        <% if(relatedProducts.length>0){ %>
+                                                                            <% relatedProducts.forEach((p)=>{ %>
+                                                                                <div
+                                                                                    class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                                                                    <!-- Block2 -->
+                                                                                    <div class="block2">
+                                                                                        <div
+                                                                                            class="block2-pic hov-img0">
+                                                                                            <a
+                                                                                                href="/view-one-product/<%=p._id %>">
+                                                                                                <img src="/productimages/<%=p.Images[0] %>"
+                                                                                                    alt="IMG-PRODUCT"></a>
+                                                                                            <%if(p.Quantity>0){%>
+                                                                                                <div
+                                                                                                    class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
+                                                                                                    In stock</div>
+                                                                                                <%}else{%>
+                                                                                                    <div
+                                                                                                        class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
+                                                                                                        Out of stock
+                                                                                                    </div>
+                                                                                                    <%}%>
+                                                                                                        <a href="#"
+                                                                                                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                                                                                            Quick View
+                                                                                                        </a>
+                                                                                        </div>
 
-                     <div class="block2-txt flex-w flex-t p-t-14">
-                         <div class="block2-txt-child1 flex-col-l ">
-                             <a href="/view-one-product/<%=p._id %>"
-                                 class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                 <%= p.Name %>
-                             </a>
+                                                                                        <div
+                                                                                            class="block2-txt flex-w flex-t p-t-14">
+                                                                                            <div
+                                                                                                class="block2-txt-child1 flex-col-l ">
+                                                                                                <a href="/view-one-product/<%=p._id %>"
+                                                                                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                                                                    <%= p.Name %>
+                                                                                                </a>
 
-                             <span class="stext-105 cl3">
-                                 ₹<%=p.Price %>
-                             </span>
-                         </div>
+                                                                                                <span
+                                                                                                    class="stext-105 cl3">
+                                                                                                    ₹<%=p.Price %>
+                                                                                                </span>
+                                                                                            </div>
 
-                         <div class="block2-txt-child2 flex-r p-t-3">
-                             <a href="#" onclick="addToWishlist('<%=p._id %>')" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                 <img class="icon-heart1 dis-block trans-04"
-                                     src="/images/icons/icon-heart-01.png" alt="ICON">
-                                 <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                                                                            <div
+                                                                                                class="block2-txt-child2 flex-r p-t-3">
+                                                                                                <a href="#"
+                                                                                                    onclick="addToWishlist('<%=p._id %>')"
+                                                                                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                                                                    <img class="icon-heart1 dis-block trans-04"
+                                                                                                        src="/images/icons/icon-heart-01.png"
+                                                                                                        alt="ICON">
+                                                                                                    <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                      src="/images/icons/icon-heart-02.png" alt="ICON"> -->
-                             </a>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-        <% }) %>
-        <% } %>
-        <% if(relatedProducts.length>0){ %>
-            <% relatedProducts.forEach((p)=>{ %>
-         <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-             <!-- Block2 -->
-             <div class="block2">
-                 <div class="block2-pic hov-img0">
-                     <a href="/view-one-product/<%=p._id %>"> <img src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
-                     <%if(p.Quantity>0){%>
-                         <div
-                             class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
-                             In stock</div>
-                         <%}else{%>
-                             <div
-                                 class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
-                                 Out of stock</div>
-                             <%}%>
-                     <a href="#"
-                         class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                         Quick View
-                     </a>
-                 </div>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <% }) %>
+                                                                                    <% } %>
+                                                                                        <% if(relatedProducts.length>0){
+                                                                                            %>
+                                                                                            <%
+                                                                                                relatedProducts.forEach((p)=>
+                                                                                                { %>
+                                                                                                <div
+                                                                                                    class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                                                                                    <!-- Block2 -->
+                                                                                                    <div class="block2">
+                                                                                                        <div
+                                                                                                            class="block2-pic hov-img0">
+                                                                                                            <a
+                                                                                                                href="/view-one-product/<%=p._id %>">
+                                                                                                                <img src="/productimages/<%=p.Images[0] %>"
+                                                                                                                    alt="IMG-PRODUCT"></a>
+                                                                                                            <%if(p.Quantity>
+                                                                                                                0){%>
+                                                                                                                <div
+                                                                                                                    class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
+                                                                                                                    In
+                                                                                                                    stock
+                                                                                                                </div>
+                                                                                                                <%}else{%>
+                                                                                                                    <div
+                                                                                                                        class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
+                                                                                                                        Out
+                                                                                                                        of
+                                                                                                                        stock
+                                                                                                                    </div>
+                                                                                                                    <%}%>
+                                                                                                                        <a href="#"
+                                                                                                                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                                                                                                            Quick
+                                                                                                                            View
+                                                                                                                        </a>
+                                                                                                        </div>
 
-                 <div class="block2-txt flex-w flex-t p-t-14">
-                     <div class="block2-txt-child1 flex-col-l ">
-                         <a href="/view-one-product/<%=p._id %>"
-                             class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                             <%= p.Name %>
-                         </a>
+                                                                                                        <div
+                                                                                                            class="block2-txt flex-w flex-t p-t-14">
+                                                                                                            <div
+                                                                                                                class="block2-txt-child1 flex-col-l ">
+                                                                                                                <a href="/view-one-product/<%=p._id %>"
+                                                                                                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                                                                                    <%= p.Name
+                                                                                                                        %>
+                                                                                                                </a>
 
-                         <span class="stext-105 cl3">
-                             ₹<%=p.Price %>
-                         </span>
-                     </div>
+                                                                                                                <span
+                                                                                                                    class="stext-105 cl3">
+                                                                                                                    ₹
+                                                                                                                    <%=p.Price
+                                                                                                                        %>
+                                                                                                                </span>
+                                                                                                            </div>
 
-                     <div class="block2-txt-child2 flex-r p-t-3">
-                         <a href="#" onclick="addToWishlist('<%=p._id %>')" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                             <img class="icon-heart1 dis-block trans-04"
-                                 src="/images/icons/icon-heart-01.png" alt="ICON">
-                             <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                                                                                            <div
+                                                                                                                class="block2-txt-child2 flex-r p-t-3">
+                                                                                                                <a href="#"
+                                                                                                                    onclick="addToWishlist('<%=p._id %>')"
+                                                                                                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                                                                                    <img class="icon-heart1 dis-block trans-04"
+                                                                                                                        src="/images/icons/icon-heart-01.png"
+                                                                                                                        alt="ICON">
+                                                                                                                    <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                  src="/images/icons/icon-heart-02.png" alt="ICON"> -->
-                         </a>
-                     </div>
-                 </div>
-             </div>
-         </div>
-    <% }) %>
-    <% } %>
-    <% if(relatedProducts.length>0){ %>
-        <% relatedProducts.forEach((p)=>{ %>
-     <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-         <!-- Block2 -->
-         <div class="block2">
-             <div class="block2-pic hov-img0">
-                 <a href="/view-one-product/<%=p._id %>"> <img src="/productimages/<%=p.Images[0] %>" alt="IMG-PRODUCT"></a>
-                 <%if(p.Quantity>0){%>
-                     <div
-                         class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
-                         In stock</div>
-                     <%}else{%>
-                         <div
-                             class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
-                             Out of stock</div>
-                         <%}%>
-                 <a href="#"
-                     class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                     Quick View
-                 </a>
-             </div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <% }) %>
+                                                                                                    <% } %>
+                                                                                                        <%
+                                                                                                            if(relatedProducts.length>
+                                                                                                            0){ %>
+                                                                                                            <%
+                                                                                                                relatedProducts.forEach((p)=>
+                                                                                                                { %>
+                                                                                                                <div
+                                                                                                                    class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                                                                                                    <!-- Block2 -->
+                                                                                                                    <div
+                                                                                                                        class="block2">
+                                                                                                                        <div
+                                                                                                                            class="block2-pic hov-img0">
+                                                                                                                            <a
+                                                                                                                                href="/view-one-product/<%=p._id %>">
+                                                                                                                                <img src="/productimages/<%=p.Images[0] %>"
+                                                                                                                                    alt="IMG-PRODUCT"></a>
+                                                                                                                            <%if(p.Quantity>
+                                                                                                                                0){%>
+                                                                                                                                <div
+                                                                                                                                    class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 specclr">
+                                                                                                                                    In
+                                                                                                                                    stock
+                                                                                                                                </div>
+                                                                                                                                <%}else{%>
+                                                                                                                                    <div
+                                                                                                                                        class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
+                                                                                                                                        Out
+                                                                                                                                        of
+                                                                                                                                        stock
+                                                                                                                                    </div>
+                                                                                                                                    <%}%>
+                                                                                                                                        <a href="#"
+                                                                                                                                            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                                                                                                                            Quick
+                                                                                                                                            View
+                                                                                                                                        </a>
+                                                                                                                        </div>
 
-             <div class="block2-txt flex-w flex-t p-t-14">
-                 <div class="block2-txt-child1 flex-col-l ">
-                     <a href="/view-one-product/<%=p._id %>"
-                         class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                         <%= p.Name %>
-                     </a>
+                                                                                                                        <div
+                                                                                                                            class="block2-txt flex-w flex-t p-t-14">
+                                                                                                                            <div
+                                                                                                                                class="block2-txt-child1 flex-col-l ">
+                                                                                                                                <a href="/view-one-product/<%=p._id %>"
+                                                                                                                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                                                                                                    <%= p.Name
+                                                                                                                                        %>
+                                                                                                                                </a>
 
-                     <span class="stext-105 cl3">
-                         ₹<%=p.Price %>
-                     </span>
-                 </div>
+                                                                                                                                <span
+                                                                                                                                    class="stext-105 cl3">
+                                                                                                                                    ₹
+                                                                                                                                    <%=p.Price
+                                                                                                                                        %>
+                                                                                                                                </span>
+                                                                                                                            </div>
 
-                 <div class="block2-txt-child2 flex-r p-t-3">
-                     <a href="#" onclick="addToWishlist('<%=p._id %>')" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                         <img class="icon-heart1 dis-block trans-04"
-                             src="/images/icons/icon-heart-01.png" alt="ICON">
-                         <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                                                                                                            <div
+                                                                                                                                class="block2-txt-child2 flex-r p-t-3">
+                                                                                                                                <a href="#"
+                                                                                                                                    onclick="addToWishlist('<%=p._id %>')"
+                                                                                                                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                                                                                                                    <img class="icon-heart1 dis-block trans-04"
+                                                                                                                                        src="/images/icons/icon-heart-01.png"
+                                                                                                                                        alt="ICON">
+                                                                                                                                    <!-- <img class="icon-heart2 dis-block trans-04 ab-t-l"
                              src="/images/icons/icon-heart-02.png" alt="ICON"> -->
-                     </a>
-                 </div>
-             </div>
-         </div>
-     </div>
-<% }) %>
-<% } %>
-
-                        
-
-                        
+                                                                                                                                </a>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <% }) %>
+                                                                                                                    <% }
+                                                                                                                        %>
 
 
-                       
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -664,18 +741,20 @@
                         <p>Get notified as soon as the product is available again.</p>
                     </div>
                     <div class="modal-body">
-                        <form action="">
-                            <input type="email" placeholder="Please Enter Email Address">
+                        <form action="/jjjj" id="notifyForm">
+                            <input type="email" name="Email" placeholder="Please Enter Email Address">
+                            <input  type="text" name="ProductId" id="notifyProductId" placeholder="Please Enter Email Address">
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" >Submit</button>
                     </div>
-                </form>
+                    </form>
 
                 </div>
             </div>
         </div>
+    </div>
         <script>
             function addToCart(proId) {
                 let quantity = document.getElementById(`qty`)?.value
@@ -684,13 +763,13 @@
                     method: 'get',
                     success: (response) => {
                         console.log(response, 'lllll');
-                        //    Swal.fire({
-                        //                 icon: 'success',
-                        //                 title: 'okeyyy!..',
-                        //                 text: 'Successfully Added To the Cart',
-                        //                 showConfirmButton: true,
-                        //                 })
-                        if(response.status){
+                        if (response.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Product Added to Cart',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
                             $('#jjsh').load(location.href + " #jjsh")
 
                         }
@@ -707,27 +786,47 @@
                     url: '/add-to-wishlist/' + proId,
                     method: 'post',
                     success: (response) => {
-                        // console.log(response,'lllll');
-                        //    Swal.fire({
-                        //                 icon: 'success',
-                        //                 title: 'okeyyy!..',
-                        //                 text: 'Successfully Added To the Wishlist',
-                        //                 showConfirmButton: false,
-                        //                 })
 
-                        if(response.status){
+                        if (response.status) {
                             $('#jjsh').load(location.href + " #jjsh")
 
                         }
-                        //                 setTimeout(()=>{
-                        // location.reload()
-                        // },1000)
                     }
                 })
             }
         </script>
 
+<script>
+  function  addProductIdNotify(proId){
+    document.getElementById('notifyProductId').value=proId
+        console.log(proId);
+          
+    }
+    document.forms["notifyForm"].addEventListener("submit", async (event) => {
+        event.preventDefault();
+                var data = $("form").serialize()
+                console.log(data);
+                $.ajax({
+                    url: '/notify-product',
+                    method: 'post',
+                    data: data,
+                    success: (response) => {
+                        console.log(response, 'lllll');
+                        if (response.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thank you.We will notify you',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+  location.reload()
+                            // $('#productDetail').load(location.href + " #productDetail")
 
+                        }
+                    }
+                })
+    })
+</script>
 
 
 

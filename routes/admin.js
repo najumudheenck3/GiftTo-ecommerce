@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const adminRouter=require('../controllers/adminRouter')
 const store=require('../middleware/multer')
+const bannerStore=require('../middleware/bannermulter')
 
 router.route('/').get(adminRouter.adminLogin).post(adminRouter.adminpostLogin)
 
@@ -28,6 +29,14 @@ router.route('/category-products/:catName').get(adminRouter.categoryWiseProducts
 router.route('/view-coupen').get(adminRouter.viewAllCoupens).post(adminRouter.addCoupen)
 
 router.route('/coupon-status/:couponId').post(adminRouter.couponStatusChange)
+
+router.route('/view-orders').get(adminRouter.getAllOrders)
+
+router.route('/cancel-order/:orderId').post(adminRouter.cancelOrder)
+
+router.route('/status-order/:orderId/:status').post(adminRouter.orderStatusChange)
+
+router.route('/view-banners').get(adminRouter.getAllBAnners).post(bannerStore.array('image',1),adminRouter.addBanner)
 
 
 

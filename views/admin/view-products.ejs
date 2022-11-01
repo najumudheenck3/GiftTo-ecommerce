@@ -13,26 +13,32 @@
       </nav>
 <section>
     <div class="container ">
-    
-        <table class="table mt-3 table-bordered table-hover" >
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Cost</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col"> Delete</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                <% products.forEach((p,index)=>{ %>
-            
-                <tr>
-                    <th scope="row"> <%= index+1 %></th>
+
+
+        <div class="">
+          
+            <div class="jumbotron shadow  bg-white rounded p-4">
+                
+              <table id="admin" class="table  table-bordered table-hover p-4" style="width:100%"  >     
+                <thead>
+                  <tr class="text-center">
+                    <th >No</th>
+                    <th >Product</th>
+                    <th >Category</th>
+                    <th >Cost</th>
+                    <th >Price</th>
+                    <th >Quantity</th>
+                    <th >Image</th>
+                    <th >Edit</th>
+                    <th > Delete</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach((p,index)=>{ %>
+                 
+                  <tr class="text-center"> 
+                    <td><%= index+1 %> </td>        
                     <td><%=p.Name %></td>
                     <td><%=p.Category %></td>
                     <td><%=p.Cost %></td>
@@ -49,12 +55,19 @@
                         <button onclick="productStatus('<%=p._id %>')" class="btn btn-success" style="width:100px ;"  >Unhide</button>
                         <% } %>
 
-                    </td> 
-                    
-                </tr>
-             <% }) %>
-            </tbody>
-        </table>
+                    </td>                       
+                  </tr>
+               <% }) %>
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+
+
+
+    
+        
     </div>
 </section>
 </main>

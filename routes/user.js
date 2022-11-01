@@ -40,7 +40,7 @@ router.route('/view-one-product/:id').get(userRouter.viewOneProduct)
 
 router.route('/cart').get(verifyUser,userRouter.viewCart)
 
-router.route('/add-to-cart/:proId/:qty').get(userRouter.addToCart)
+router.route('/add-to-cart/:proId/:qty').get(verifyUser,userRouter.addToCart)
 
 router.route('/change-quantity/:proId/:changeStatus').post(userRouter.changeQuantity)
 
@@ -68,7 +68,13 @@ router.route('/order-success').get(userRouter.orderSuccessPage)
 
 router.route('/getorder').get(userRouter.getOrder)
 
-router.route('/addAddress').post(userRouter.addAddress)
+router.route('/addAddress').post(userRouter.addAndEditAddress)
+
+router.route('/delete-address/:addresIndex').delete(userRouter.deleteAddress)
+
+router.route('/cancel-order/:orderId').post(userRouter.cancelOrder)
+
+router.route('/notify-product').post(userRouter.addNotifyProduct)
 
 
 

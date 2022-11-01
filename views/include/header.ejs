@@ -15,25 +15,25 @@
 					<div class="menu-desktop">
 						<ul class="main-menu text-white">
 							<li class="active-menu">
-								<a href="index.html" class="text-white">Home</a>
-								<ul class="sub-menu">
+								<a href="/" class="text-white">Home</a>
+								<!-- <ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
+								</ul> -->
 							</li>
 
 							<li>
 								<a href="/shop-products" class="text-white">Shop</a>
 							</li>
-
+<!-- 
 							<li class="label1 " data-label1="hot">
 								<a href="shopi" class="text-white">Features</a>
 							</li>
 
 							<li>
 								<a href="blog.html" class="text-white">Blog</a>
-							</li>
+							</li> -->
 
 							<li>
 								<a href="/about" class="text-white">About</a>
@@ -48,29 +48,32 @@
 					<!-- Icon header -->
 
 					<div class="wrap-icon-header flex-w flex-r-m h-full">
-						<div class="dropdown ">
-							<button class="btn  dropdown-toggle text-white" type="button" id="dropdownMenuButton"
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+
+						
+
+
+						<div class="dropdown text-center">
+							<button style="width:150px ;" class="btn btn-default dropdown-toggle text-white" type="button" data-toggle="dropdown">
 								<% if (user) { %>
-									<%= user.Name %>
-										<%} else { %>
-											Account
-											<% } %>
-
-
-
-							</button>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<% if (user) { %>
-									<a class="dropdown-item" href="/logout">Logout </a>
-									<a class="dropdown-item" href="/my-profile">My Profile </a>
-									<a class="dropdown-item" href="/order-success">my orders </a>
+								<%= user.Name %>
 									<%} else { %>
-										<a class="dropdown-item" href="/login">Login </a>
+										Account
 										<% } %>
-
-							</div>
+							<span class="caret"></span></button>
+							<ul class="dropdown-menu dropdown-menu-center text-center">
+								<% if (user) { %>
+							  <li><a class="text-dark font-weight-bold" href="/logout">Logout</a></li>
+							 <hr>
+							  <li><a class="text-dark font-weight-bold" href="/my-profile">My Profile</a></li>
+							 
+							  <%} else { %>
+							  <li><a class="text-dark font-weight-bold" href="/login">Login</a></li>
+							  <% } %>
+							</ul>
+						  </div>
 						</div>
+						
 						<div class="flex-c-m h-full p-r-24">
 							<div class="icon-header-item  cl2 hov-cl1 trans-04 p-lr-11">
 								<!-- <i class="zmdi zmdi-search text-white">jj</i> -->
@@ -97,8 +100,13 @@
 								</div>
 								<div id="wishnum" class="flex-c-m h-full p-l-18 p-r-25 bor5">
 									<% if (user) { %>
+										<%	if(wishlistNumber>0){ %>
 									<div  class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti "
 										data-notify="<%= wishlistNumber %>">
+										<%} else { %>
+											<div  class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti "
+										data-notify="0">
+										<% } %>
 										<%} else { %>
 											<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11  "
 											data-notify="">

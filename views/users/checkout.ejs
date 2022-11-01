@@ -5,7 +5,7 @@
         <div class="container mt-5">
             
 
-            <div class="row">
+            <div class="row" id="add-ress-reload">
                 <div class="col-md-4 order-md-2 mb-4">
                   
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -62,33 +62,35 @@
                         <div class="row">
 
                            <% if(user.Address.length>0){ %>
-                                <% user.Address.forEach((adrs)=>{ %>
-                                    <div class="col-md-6 mb-2" id="">
+                                <% user.Address.forEach((adrs,index)=>{ %>
+                                    <div class="col-md-12 mb-2" id="">
+                                        <div class="jumbotron shadow  bg-white rounded p-4">
                                         <div class="card">
                                           <div class="card-body">
                                             <h5 class="card-title"><i class="fa-solid fa-location-dot"></i></h5>
                                             <address class="card-text">
-                                                <%=adrs.firstName%>  <%=adrs.lastName%><br>
-                                                <%=adrs.address%><br>pincode : <%=adrs.pincode%><br><%=adrs.district%>, <%=adrs.state%><br>Phone : <%=adrs.phone%><br>
+                                                <%=adrs.firstName%>  <%=adrs.lastName%>  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <%=adrs.phone%><br>
+                                                <%=adrs.address%><br><%=adrs.district%>, <%=adrs.state%> ,pincode : <%=adrs.pincode%><br>
                                             
                                             </address>
-                                            <button class="btn btn-outline-dark" onclick="fillForm(' <%=JSON.stringify(adrs)%>')">Use the Address</button>
+                                            <button class="btn btn-outline-dark" onclick="fillForm(' <%=JSON.stringify(adrs)%>','<%=index%>')">Use the Address</button>
                                             <!-- <button data-bs-toggle="modal" data-placement="top" data-bs-target="#exampleModa"><i class="bi bi-pen"></i></button> -->
                                 
-                                            <button onclick="deleteAddress('')" data-toggle="tooltip" data-placement="top" title="Delete"><i class="bi bi-trash" style="font-size: 1.2rem; color: rgb(255, 0, 0);"></i></button></a>
+                                            <a href="#" onclick="deleteAdddress('<%=index%>')" data-toggle="tooltip" data-placement="top" title="Delete"><i class="bi bi-trash ml-5" style="font-size: 1.2rem; color: rgb(255, 0, 0);"></i></a>
                                 
                                           </div>
                                         </div>
                                       </div>
-                                      
+                                    </div>
                                 <% }) %>
                             <% } %>
                             
                           </div>
                   
-                    <h4 class="mb-3">Billing address</h4>
+                   
                   
-                       
+                    <div class="jumbotron shadow  bg-white rounded p-4">
+                        <h4 class="mb-3">Billing address</h4>
                     <form action="/user/checkout" method="post" class="needs-validation" id="checkoutForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -161,6 +163,11 @@
                                 <input name="pin" type="text" class="form-control" id="pin" placeholder="" required="">
                                 <div class="invalid-feedback"> PIN code required. </div>
                             </div>
+                          
+                              
+                                <input name="index" type="text" class="form-control" id="index" placeholder=""  hidden>
+                              
+                           
                         </div>
                         <hr class="mb-4">
                         <!-- <div class="custom-control custom-checkbox">
@@ -218,6 +225,7 @@
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                     </form>
                     </div>
+            </div>
                 </div>
             </div>
             <!-- <footer class="my-5 pt-5 text-muted text-center text-small">
@@ -289,80 +297,14 @@
 
 
         </div> -->
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                            aria-expanded="true" aria-controls="collapseOne">
-                            Collapsible Group Item #1
-                        </button>
-                    </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                            aria-expanded="false" aria-controls="collapseTwo">
-                            Collapsible Group Item #2
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                            aria-expanded="false" aria-controls="collapseThree">
-                            Collapsible Group Item #3
-                        </button>
-                    </h5>
-                </div>
-             
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <% } %>
 
 
         <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script>
-            function fillForm(oneAddress){
+            function fillForm(oneAddress,index){
                 let address = JSON.parse(oneAddress)
                 document.getElementById('firstName').value=address.firstName
                 document.getElementById('lastName').value=address.lastName
@@ -371,6 +313,7 @@
                 document.getElementById('state').value=address.state
                 document.getElementById('district').value=address.district
                 document.getElementById('pin').value=address.pincode
+                document.getElementById('index').value=index
 
 
             }
@@ -496,7 +439,7 @@
                         setTimeout(() => {
                             // location.reload()
                             window.location = "/order-success"
-                        }, 1000)
+                        }, 1000)  
                     }
                 })
             }
@@ -568,5 +511,29 @@
 
             }
 
+        </script>
+        <script>
+            function deleteAdddress(addressIndex) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#013542',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/delete-address/' + addressIndex,
+                            method: 'delete',
+                            success: (response) => {
+
+                                $('#add-ress-reload').load(location.href + " #add-ress-reload")
+                            }
+                        })
+                    }
+                })
+            }
         </script>
         <%- include('../include/footer') %>

@@ -3,6 +3,11 @@ const Product=require('../models/productSchema')
 const user=require('../models/userSchema')
 const category=require('../models/categorySchema')
 const couponModel=require('../models/coupenSchema')
+const orderModel = require('../models/orderSchema');
+const bannerModel =require('../models/bannerShcema')
+var fs = require('fs');
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
 
 
 
@@ -96,7 +101,9 @@ exports.editProduct=(req,res,next)=>{
     Product.findOne({_id:req.params.id},(err,data)=>{
         // console.log(data);
 category.find({},(err,data1)=>{
+    console.log(data.Images);
     // console.log(data1);
+    req.session.oldImagesofProduct=data.Images
     res.render('admin/edit-product',{product:data,category:data1})
 
 })
@@ -109,7 +116,7 @@ category.find({},(err,data1)=>{
     
 }
 
-exports.postEditProduct=(req,res,next)=>{
+exports.postEditProduct=async (req,res,next)=>{
     console.log(req.body);
     const Images=[];
     for(i=0;i<req.files.length;i++){
@@ -117,6 +124,10 @@ exports.postEditProduct=(req,res,next)=>{
     }
     req.body.Image=Images
     if(req.files.length>0){
+        let oldImages=req.session.oldImagesofProduct
+        oldImages.forEach(async (Image) => {
+          await  unlinkAsync("public/productimages/" + Image)
+          })
         Product.updateOne({_id:req.params.id},{$set:{
             Name:req.body.Name,
             Category:req.body.Category,
@@ -309,5 +320,81 @@ exports.couponStatusChange=async(req,res)=>{
       } catch (err) {
         console.log(err);
         // res.redirect('back')
+      }
+}
+
+exports.getAllOrders=async(req,res)=>{
+    const allOrders = await orderModel.find({}).populate([
+        {
+            path: "userId",
+            model: "user"
+        },
+        {
+            path: "products.productId",
+            model: "product"
+        }
+    ]).exec()
+    console.log(allOrders);
+res.render('admin/view-orders',{allOrders})
+}
+
+exports.cancelOrder=async(req,res)=>{
+    console.log(req.params.orderId,'jkfhdjfd111');
+    let orderId=req.params.orderId
+   await orderModel.findByIdAndUpdate(orderId,{
+        orderActive:false})
+        res.json({ status: true })
+}
+
+exports.orderStatusChange=async(req,res)=>{
+    console.log(req.params.orderId);
+    console.log(req.params.status);
+    let orderId=req.params.orderId
+let status=req.params.status
+    if(status==="placed"){
+        console.log("pending anu tooth");
+        await orderModel.findByIdAndUpdate(orderId,{
+            status:"Packed"})
+    }else if(status==="Packed"){
+        await orderModel.findByIdAndUpdate(orderId,{
+            status:"Shipped"})
+    }else if(status==="Shipped"){
+        await orderModel.findByIdAndUpdate(orderId,{
+            status:"Out For Delivery"})
+    }else if(status==="Out For Delivery"){
+        await orderModel.findByIdAndUpdate(orderId,{
+            status:"Delivered"})
+    }
+    res.json({ status: true })
+
+}
+
+exports.getAllBAnners=async(req,res)=>{
+    try {
+        const banner = await bannerModel.find()
+        console.log(banner);
+        res.render('admin/view-banners',{banner})
+        // res.render("admin/coupon-manage", { coupon, layout: 'layout/usermanage-layout' })
+  
+      } catch (error) {
+        console.log(error);
+  
+      }
+}
+
+exports.addBanner=async(req,res)=>{
+    console.log(req.body);
+    console.log(req.files);
+    try {
+        await bannerModel.create({
+          title: req.body.title,
+          subTitle: req.body.subTitle,
+          image:req.files[0].filename
+        })
+        res.redirect('back')
+  
+      } catch (error) {
+        console.log(error);
+  
       }
 }

@@ -34,32 +34,45 @@
 
         <section>
             <div class="container ">
-               
-                <table class="table mt-3 table-bordered text-center table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Category Name</th>
-                            <th scope="col">Show All Products</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       <% category.forEach((p,index)=>{ %>
-                        
-                         <tr>
-                             <th scope="row"><%= index+1 %></th>
-                             <td><%=p.CategoryName %></td>
-                             <td>
+
+
+                <div class="">
+          
+                    <div class="jumbotron shadow  bg-white rounded p-4">
+                     
+                      <table id="admin" class="table  table-bordered table-hover p-4" style="width:100%"  >     
+                        <thead>
+                          <tr class="text-center">
+                            <th >No</th>
+                            <th >Category Name</th>
+                            <th >Show All Products</th>
+                            <th >Delete</th>
+                            
+                           
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% category.forEach((p,index)=>{ %>
+                         
+                          <tr class="text-center">         
+                              <td><%= index+1 %> </td>
+                            <td><%=p.CategoryName %> </td>
+                            <td>
                                 <a href="/admin/category-products/<%=p.CategoryName %>" class="btn btn-primary">Products</a>
-                            </td>
+                             </td>
                             <td>
                                 <a href="" class="btn btn-danger">Delete</a>
-                            </td>
-                             </tr>
-                             <% }) %>
-                             </tbody>
-                </table>
+                             </td>
+                            
+                          
+                                                  
+                          </tr>
+                       <% }) %>
+                        </tbody>
+                      </table>
+                      
+                    </div>
+                  </div>
             </div>
         </section>
 </main>
