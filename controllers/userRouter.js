@@ -12,6 +12,8 @@ const Razorpay = require('razorpay');
 const twilioHelpers = require('../utils/otpverify');
 const category = require('../models/categorySchema')
 const notifyModel = require('../models/notifySchema');
+const bannerModel =require('../models/bannerShcema')
+
 
 
 const instance = new Razorpay({
@@ -34,9 +36,10 @@ exports.userHome = async (req, res) => {
         }
     }
     let Category = await category.find({})
+    const banner = await bannerModel.find({ isActive: true })
     Product.find({ productActive: true }, (err, data) => {
         // console.log(data);
-        res.render('users/home', { user, Category, cartNumber, wishlistNumber, products: data })
+        res.render('users/home', { user,banner, Category, cartNumber, wishlistNumber, products: data })
     })
 }
 
@@ -500,7 +503,6 @@ userOne.Address.push(deliveryAddress);
         userId: userId,
         deliveryAddress: deliveryAddress,
         products: cart.products,
-        quantity: cart.quantity,
         total: cart.total,
         paymentType: paymentType
     })

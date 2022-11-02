@@ -38,7 +38,9 @@ router.route('/status-order/:orderId/:status').post(adminRouter.orderStatusChang
 
 router.route('/view-banners').get(adminRouter.getAllBAnners).post(bannerStore.array('image',1),adminRouter.addBanner)
 
+router.route('/banner-status/:bannerId').post(adminRouter.bannerStatusChange)
 
+router.route("/getGraphDetails").get(adminRouter.getGraphDetails)
 
 
 router.get('/signout',(req,res)=>{

@@ -191,7 +191,7 @@
                             <div class="custom-control custom-radio">
                                 <input id="paypal" name="paymentType" type="radio" value="Online Payment"
                                     class="custom-control-input" required="">
-                                <label class="custom-control-label" for="paypal">PayPal</label>
+                                <label class="custom-control-label" for="paypal">Razorpay</label>
                             </div>
                             <input style="display:none ;" id="passlsttotal" type="text" name="total"
                                 value="<%= cartProducts.total %>">
@@ -222,7 +222,7 @@
                             </div>
                         </div> -->
                         <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                        <button class="  btn-lg btn-block specclr text-white" type="submit">Continue to checkout</button>
                     </form>
                     </div>
             </div>
@@ -485,7 +485,7 @@
                                     width: "25em",
                                     timer: 2000,
                                 })
-                                window.location = "/"
+                                window.location = "/checkout"
                             }
                         } catch (err) {
                             console.log(err)

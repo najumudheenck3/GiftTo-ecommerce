@@ -2019,6 +2019,11 @@ input.num-product::-webkit-inner-spin-button {
   color:#013542 ;
 }
 
+.specclrBorder{
+  border-color:#013542 ;
+}
+
+
 /*---------------------------------------------*/
 .block1-txt:hover {
   background-color: rgba(103,117,214,0.8);

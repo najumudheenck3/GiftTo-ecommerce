@@ -12,9 +12,67 @@ const unlinkAsync = promisify(fs.unlink)
 
 
 
-exports.adminLogin=(req,res,next)=>{
+exports.adminLogin=async (req,res,next)=>{
     if(req.session.loggedInAdmin){
-        res.render('admin/dashboard')
+        let totalSales=await orderModel.aggregate([
+            {
+                $match:{
+                    orderActive:true
+                }},
+            {
+                $group:{
+                    _id:null,
+                    totalSale:{$sum:"$total"}
+                }
+            }
+        ])
+        let totalSale=totalSales[0].totalSale
+        let totalUsers=await user.find({}).count()
+        //cashtotal cod&delivered , online&not canceled
+        let totalCash=await orderModel.aggregate([
+            {
+                $match:{
+                    $or:[{
+                        $and:[{status:"Delivered"},{paymentType:"cod"}]},{
+                            $and:[{paymentType:"Online Payment"},{orderActive:true}]
+                        }]
+                    }
+                },
+                {
+                    $group:{
+                        _id:null,
+                        totalCash:{$sum:"$total"}
+                    }
+                }
+            ])
+      //total orders not canceled and not delivered
+      let totalOrderCount=await orderModel.aggregate([
+        {
+            $match:{
+                $and:[{orderActive:true},{status:{$ne:"Delivered"}}]
+            }
+        },
+        {
+            $count:"total"
+        }
+    ])
+    let orderCount=totalOrderCount[0].total
+       let totalMoney=totalCash[0].totalCash
+
+       const allOrders = await orderModel.find().populate([
+        {
+            path: "userId",
+            model: "user"
+        },
+        {
+            path: "products.productId",
+            model: "product"
+        }
+    ]).exec()
+   
+
+
+        res.render('admin/dashboard',{totalSale,totalUsers,totalMoney,orderCount,allOrders})
         // res.redirect('/admin/dashboard')
     }else{
         res.render('admin/login',{message:req.flash('message')})
@@ -25,8 +83,9 @@ exports.adminLogin=(req,res,next)=>{
 const aEmail="admin@gmail.com"
 const aPassword="123"
 
-exports.adminpostLogin=(req,res,next)=>{
+exports.adminpostLogin=async(req,res,next)=>{
     console.log(req.body);
+    // await admin.find({})
     const data = {
         email: req.body.Email,
         password: req.body.Password,
@@ -398,3 +457,68 @@ exports.addBanner=async(req,res)=>{
   
       }
 }
+
+exports.bannerStatusChange=async (req,res)=>{
+    console.log(req.params.bannerId);
+   
+    let bannerId = req.params.bannerId
+    try {
+        let banner=await bannerModel.findOne({_id:bannerId})
+        // console.log(coupon);
+        if(banner.isActive){
+         bannerModel.updateOne({_id:bannerId},{$set:{isActive:false}}).then(async()=>{
+                res.json({status:true})
+            })
+        }else{
+            bannerModel.updateOne({_id:bannerId},{$set:{isActive:true}}).then(async()=>{
+                res.json({status:true})
+            })
+        }
+      } catch (err) {
+        console.log(err);
+        // res.redirect('back')
+      }
+}
+
+
+exports.getGraphDetails=async (req, res) => {
+    try {
+//   for firstone
+    const totalOrder=await orderModel.find().count()
+    const cancelOrder=await orderModel.find({orderActive:false}).count()
+    const successOrder=totalOrder-cancelOrder
+
+// for seconone
+
+
+
+
+
+      const totalSale = await orderModel.aggregate([
+
+        // First Stage
+        {
+          $match: { "createdAt": { $ne: null } }
+        },
+        {
+          $match: { "orderActive": true }
+        },
+        // Second Stage
+        {
+          $group: {
+            _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+            sales: { $sum: "$total" },
+          }
+        },
+        // Third Stage
+        {
+          $sort: { _id: -1 }
+        }
+      ])
+console.log(totalSale,'jjjj');
+      res.json({ totalSale: totalSale,successOrder,cancelOrder })
+
+    } catch (err) {
+      res.json({ err })
+    }
+  }
