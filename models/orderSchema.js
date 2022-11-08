@@ -26,6 +26,9 @@ const orderSchema = new mongoose.Schema({
     total : {
         type:Number
     },
+    discount : {
+        type:Number
+    },
     paymentType : {
         type : String,
         required:true

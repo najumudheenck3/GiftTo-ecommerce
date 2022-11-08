@@ -61,7 +61,11 @@
                                 <a href="/admin/category-products/<%=p.CategoryName %>" class="btn btn-primary">Products</a>
                              </td>
                             <td>
-                                <a href="" class="btn btn-danger">Delete</a>
+                             <% if(p.categoryActive){%>
+                                <button  onclick="categoryStatus('<%=p._id %>')" class="btn btn-outline-danger">HIDE</button>
+                              <%}else{%>
+                                <button onclick="categoryStatus('<%=p._id %>')"  class="btn btn-outline-success">UNHIDE</button>
+                                <%}%>
                              </td>
                             
                           
@@ -78,6 +82,51 @@
         </section>
 </main>
 
+
+<script>
+  function categoryStatus(catId){
+     
+      
+
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "Change Category Status!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#013542 ',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Change it!'
+          }).then((result) => {
+          if (result.isConfirmed) {
+              $.ajax({
+                  url:'/admin/category-status/'+catId,
+                  method:'post',
+                  success:(response)=>{
+                    if(response.productExist){
+                      Swal.fire({
+                          icon: 'info',
+                          text: 'Product Exist',
+                          showConfirmButton: true,
+                          })
+                    }else if(response.status){
+                          Swal.fire({
+                          icon: 'success',
+                          title: 'Changed',
+                          text: 'Category Status Changed',
+                          showConfirmButton: false,
+                          })
+                          setTimeout(()=>{
+                              location.reload()
+                          },1000)
+                          
+                      }
+                  }
+              })
+              
+          }
+          })
+  }
+</script>
 
 
 <%- include('../admininclude/adminfooter') %>

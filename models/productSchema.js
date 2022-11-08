@@ -2,6 +2,27 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const reviewSchema = new mongoose.Schema({
+    rating: {
+        type: Number,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    review: {
+        type: String,
+        required: true
+    }
+
+
+})
+
 
 const productSchema = new Schema({
     Name: {
@@ -31,12 +52,15 @@ const productSchema = new Schema({
     productActive: {
         type: Boolean,
         required: true,
-        default:true
+        default: true
     },
-    Images:{
+    Images: {
         type: Array,
-        required:true
+        required: true
+    },
+    reviews: {
+        type: [reviewSchema]
     }
 })
 
-module.exports = mongoose.model( 'product',productSchema );
+module.exports = mongoose.model('product', productSchema);

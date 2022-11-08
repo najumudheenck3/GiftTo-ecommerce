@@ -28,7 +28,7 @@
                
                 <%allOrders.reverse().forEach(order => { %> 
               <tr id="order " class="text-center">         
-                  <td><a href="/admin/orders/" class="link-dark">#<%=order._id%></a></td>
+                  <td><a href="/admin/get-invoice/<%=order._id%>" class="link-dark">#<%=order._id%></a></td>
                 <td><%=order.products.length%> </td>
                 
     

@@ -277,10 +277,7 @@
                                             class=" rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3 bg-danger">
                                             Out of stock</div>
                                         <%}%>
-                                            <a href="#"
-                                                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                                Quick View
-                                            </a>
+                                          
                             </div>
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
@@ -295,7 +292,7 @@
                                 </div>
 
                                 <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="" onclick="addToWishlist('<%=p._id %>')"
+                                    <a href="#" onclick="addToWishlist('<%=p._id %>')"
                                         class="btn-addwish-b2 dis-block pos-relative ">
                                         <img class="icon-heart1 dis-block trans-04"
                                             src="images/icons/icon-heart-01.png" alt="ICON">
@@ -326,12 +323,8 @@
 
             </div>
 
-            <!-- Load more -->
-            <div class="flex-c-m flex-w w-full p-t-45">
-                <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                    Load More
-                </a>
-            </div>
+         
         </div>
     </section>
+    <script src="/javascript/userjs/home.js"></script>
     <%- include('../include/footer') %>

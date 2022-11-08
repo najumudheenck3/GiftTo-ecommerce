@@ -40,7 +40,7 @@ router.route('/view-one-product/:id').get(userRouter.viewOneProduct)
 
 router.route('/cart').get(verifyUser,userRouter.viewCart)
 
-router.route('/add-to-cart/:proId/:qty').get(verifyUser,userRouter.addToCart)
+router.route('/add-to-cart/:proId/:qty').get(userRouter.addToCart)
 
 router.route('/change-quantity/:proId/:changeStatus').post(userRouter.changeQuantity)
 
@@ -64,9 +64,9 @@ router.route('/payment/orderId').post(userRouter.generateOrder)
 
 router.route('/payment/verify/:orderId').post(userRouter.verifyPayment)
 
-router.route('/order-success').get(userRouter.orderSuccessPage)
+router.route('/order-success').get(verifyUser,userRouter.orderSuccessPage)
 
-router.route('/getorder').get(userRouter.getOrder)
+router.route('/getorder').get(verifyUser,userRouter.getOrder)
 
 router.route('/addAddress').post(userRouter.addAndEditAddress)
 
@@ -75,6 +75,18 @@ router.route('/delete-address/:addresIndex').delete(userRouter.deleteAddress)
 router.route('/cancel-order/:orderId').post(userRouter.cancelOrder)
 
 router.route('/notify-product').post(userRouter.addNotifyProduct)
+
+router.route('/get-invoice/:orderId').get(verifyUser,userRouter.getInvoice)
+
+router.route('/change-passwordOtp').post(userRouter.changePasswordOtp)
+
+router.route('/change-password').post(userRouter.changePassword)
+
+router.route('/contact-giftto').get(userRouter.contactPage)
+
+router.route('/contact-message').post(userRouter.messageInsert)
+
+router.route('/post-reviews').post(userRouter.addReviews)
 
 
 

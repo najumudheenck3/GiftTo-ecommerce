@@ -7,6 +7,11 @@ const categorySchema = new Schema({
     CategoryName: {
         type: String,
         required: true
+    },
+    categoryActive: {
+        type: Boolean,
+        required: true,
+        default:true
     }
 })
 

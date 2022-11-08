@@ -16,31 +16,20 @@
 						<ul class="main-menu text-white">
 							<li class="active-menu">
 								<a href="/" class="text-white">Home</a>
-								<!-- <ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul> -->
+								
 							</li>
 
 							<li>
 								<a href="/shop-products" class="text-white">Shop</a>
 							</li>
-<!-- 
-							<li class="label1 " data-label1="hot">
-								<a href="shopi" class="text-white">Features</a>
+
+
+							<li>
+								<a href="/" class="text-white">About</a>
 							</li>
 
 							<li>
-								<a href="blog.html" class="text-white">Blog</a>
-							</li> -->
-
-							<li>
-								<a href="/about" class="text-white">About</a>
-							</li>
-
-							<li>
-								<a href="contact.html" class="text-white">Contact</a>
+								<a href="/contact-giftto" class="text-white">Contact</a>
 							</li>
 						</ul>
 					</div>
@@ -63,9 +52,11 @@
 							<span class="caret"></span></button>
 							<ul class="dropdown-menu dropdown-menu-center text-center">
 								<% if (user) { %>
-							  <li><a class="text-dark font-weight-bold" href="/logout">Logout</a></li>
+									<li><a class="text-dark font-weight-bold" href="/my-profile"><i class="fas fa-user-circle"></i> My Profile</a></li>
+
 							 <hr>
-							  <li><a class="text-dark font-weight-bold" href="/my-profile">My Profile</a></li>
+							 <li><a class="text-dark font-weight-bold" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
 							 
 							  <%} else { %>
 							  <li><a class="text-dark font-weight-bold" href="/login">Login</a></li>

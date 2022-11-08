@@ -19,24 +19,27 @@
                     <p>Please login to your account</p>
   
                     <div class="form-outline mb-4">
-                      <input name="Email" type="email" id="form2Example11" class="form-control"
-                        placeholder=" email address" required/>
-                      <label class="form-label" for="form2Example11" >Username</label>
+                      <label class="form-label" for="form2Example11" >Email</label>
+                      <input name="Email" type="email" id="Email" class="form-control"
+                        placeholder=" email address" onkeyup="validateEmail()" />
+                        <span id="email-error" class="text-danger text-center font-weight-bold"></span>
                     </div>
   
                     <div class="form-outline mb-4">
-                      <input name="Password" type="password" id="form2Example22" class="form-control" required/>
                       <label class="form-label" for="form2Example22">Password</label>
+                      <input name="Password" type="password" id="Password" class="form-control" onkeyup="validatePassword()" />
+                      <span id="pass-error" class="text-danger text-center font-weight-bold"></span>
                     </div>
                     <% if(message.length > 0){ %>
                     <div>
-                     <p class="text-danger text-center"> <%= message %></p>
+                     <p class="text-danger text-center font-weight-bold"> <%= message %></p>
                     </div>
                    <% }%>
   <!-- <p  class="text-center">hii</p> -->
                     <div class="text-center pt-1 mb-5 pb-1">
-                      <button  class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" style="background-color:#013542 ;" type="submit">Log
+                      <button onclick="return validateForm()" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" style="background-color:#013542 ;" type="submit">Log
                         in</button>
+                        <span id="submit-error" class="text-danger font-weight-bold"></span>
                       <a class="text-muted" href="#!">Forgot password?</a>
                     </div>
   
@@ -52,9 +55,7 @@
               <div class="col-lg-6 d-flex align-items-center gradient-custom-2 " style="background-color:#013542 ;">
                 <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                   <h4 class="mb-4">We are more than just a company</h4>
-                  <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  <p class="small mb-0">We offer the best range of products that you can transform into assorted gifts of your choice. We have gifts that are perfect for any occasion or any special moment and for every person in your life.  Gone are the days where you have to worry about damaged goods or your gift to your loved one being misplaced? Online gifting is easier with us as we promise reliability and quality over anything else. The best part? All of this comes to you at prices that promise value for money. So what are you waiting for? Remember us when you want to send gifts of love and we will be right here to help you out! Meanwhile, let your eyes wander through our website to see how easily you can get a personalised gift-ready!</p>
                 </div>
               </div>
             </div>
@@ -65,6 +66,5 @@
   </section>
 	
 	
+  <script src="/javascript/userjs/loginValildation.js"></script>
 
-
-<%- include('../include/footer') %>
