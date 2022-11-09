@@ -95,14 +95,14 @@
                     success: (response) => {
                         console.log(response, 'lllll');
                         if (response.status) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Thank you.We will notify you',
-                                showConfirmButton: false,
-                                timer: 1000
-                            })
-                            location.reload()
-                            // $('#productDetail').load(location.href + " #productDetail")
+                            // Swal.fire({
+                            //     icon: 'success',
+                            //     title: 'Thank you for your review',
+                            //     showConfirmButton: false,
+                            //     timer: 1000
+                            // })
+                            // location.reload()
+                            $('#reviewdiv').load(location.href + " #reviewdiv")
 
                         }
                     }

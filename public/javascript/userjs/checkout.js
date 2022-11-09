@@ -70,10 +70,13 @@
                 
                     document.forms["checkoutForm"].addEventListener("submit", async (event) => {
                         event.preventDefault();
-                        const paymentType = $('input[name=paymentType]:checked', '#checkoutForm').val()
+                        // const paymentType = $('input[name=paymentType]:checked', '#checkoutForm').val()
                         var data = $("form").serialize();
-                        console.log(paymentType, 'jjjj');
+                        // console.log(paymentType, 'jjjj');
                         console.log(data);
+                        var form_data = $('#checkoutForm').serializeArray()
+                        console.log(form_data[8].value);
+                        const paymentType=form_data[8].value
 
                         if (paymentType == "cod") {
                             checkout(data)

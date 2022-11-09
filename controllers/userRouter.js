@@ -909,6 +909,7 @@ exports.addReviews=async(req,res)=>{
     let product=await Product.findById(proId)
     product.reviews.push(review)
     product.save()
+    res.json({status:true})
     }catch (err) {
         console.log(err);
        next(err)
