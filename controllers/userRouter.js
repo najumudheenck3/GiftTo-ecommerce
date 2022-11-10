@@ -918,6 +918,7 @@ exports.addReviews=async(req,res)=>{
 }
 
 exports.userLogout = ((req, res,next) => {
-    req.session.destroy()
+    req.session.loggedIn=false
+    req.session.user=null
     res.redirect('/')
 })

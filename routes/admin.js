@@ -55,7 +55,7 @@ router.route('/get-invoice/:orderId').get(verifyAdmin,adminRouter.getInvoice)
 
 
 router.get('/signout',(req,res)=>{
-    req.session.destroy()
+   req.session.loggedInAdmin=false
     res.redirect('/admin')
 })
 
